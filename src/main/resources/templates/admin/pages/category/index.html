@@ -1,0 +1,225 @@
+<form id="list" th:fragment="categoryList">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <!--Blank page-->
+            <small><!--it all starts here--></small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Danh sách danh mục</h3>
+                        <div class="row pull-right">
+                            <a th:href="@{/admin/category/edit}" class="btn btn-info">Thêm danh mục</a>
+                            <a th:href="@{#}" class="btn btn-danger" style="display: none;"
+                               id="btnDelete" group-name="btnDelete">Xóa danh mục</a>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="dataTables_length" id="example1_length"><label>Hiển thị <select
+                                            id="size"
+                                            name="size" aria-controls="example1"
+                                            class="form-control input-sm">
+                                        <option value="10" th:selected="${pageDTO.getSize() == 10}">10</option>
+                                        <option value="25" th:selected="${pageDTO.getSize() == 25}">25</option>
+                                        <option value="50" th:selected="${pageDTO.getSize() == 50}">50</option>
+                                        <option value="100" th:selected="${pageDTO.getSize() == 100}">100</option>
+                                    </select> bài viết</label></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div id="example1_filter" class="dataTables_filter"><label>Search:<input
+                                            type="search"
+                                            class="form-control input-sm"
+                                            placeholder=""
+                                            aria-controls="example1"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable"
+                                           role="grid"
+                                           aria-describedby="example1_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Rendering engine: activate to sort column descending"
+                                                class="text-center align-middle" style="width: 50.238px;">
+                                                <input type="checkbox" id="selectAll"/>
+                                            </th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Rendering engine: activate to sort column descending"
+                                                style="width: 138.238px;">STT
+                                            </th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="Browser: activate to sort column ascending"
+                                                style="width: 177.225px;">Mã danh mục
+                                            </th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                                style="width: 162.163px;">Tên danh mục
+                                            </th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                                style="width: 162.163px;">Mô tả
+                                            </th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Rendering engine: activate to sort column descending"
+                                                style="width: 138.238px;">Hành động
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" th:each="model, stat : ${models}">
+                                            <td class="text-center align-middle">
+                                                <input type="checkbox" class="form-check-input"
+                                                       th:data-value="${model.id}">
+                                            </td>
+                                            <td th:text="${stat.count}"></td>
+                                            <td th:text="${model.code}"></td>
+                                            <td th:text="${model.name}"></td>
+                                            <td th:text="${model.description}"></td>
+                                            <td>
+                                                <div class="row text-center align-middle">
+                                                    <a th:href="@{/admin/category/edit/{id}(id=${model.id})}"
+                                                       class="btn btn-info btn-sm">
+                                                        <span class="glyphicon glyphicon-edit"></span> Sửa
+                                                    </a>
+                                                    <a href="#"
+                                                       class="btn btn-danger btn-sm" group-name="btnDelete">
+                                                        <span class="glyphicon glyphicon-trash"></span> Xóa
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5" th:if="${to > pageDTO.getTotalElements()}">
+                                    <div class="dataTables_info" role="status" aria-live="polite">
+                                        Hiển thị
+                                        [[${from}]] to [[${pageDTO.getTotalElements()}]] entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-5" th:unless="${to > pageDTO.getTotalElements()}">
+                                    <div class="dataTables_info" role="status" aria-live="polite">
+                                        Hiển thị
+                                        [[${from}]] to [[${to}]] of [[${pageDTO.getTotalElements()}]] entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                        <ul class="pagination" style="display: inline-block"
+                                            id="pagination"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    <input type="hidden" value="" id="page" name="page"/>
+</form>
+
+<script th:fragment="script">
+    let totalPages = [[${pageDTO.totalPages}]];
+    let currentPage = [[${pageDTO.number}]] + 1;
+    $(function () {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 5,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (currentPage !== page) {
+                    $('#page').val(page - 1);
+                    $('#list').submit();
+                }
+            }
+        });
+    });
+
+    $('#size').change(function () {
+        $('#size').val($(this).val());
+        $('#page').val(0);
+        $('#list').submit();
+    })
+
+    $('#selectAll').click(function () {
+        let isChecked = $('#selectAll').prop("checked");
+        $('tbody input[type="checkbox"]').each(function () {
+            $(this).prop("checked", isChecked);
+        })
+    })
+
+    $('#list tbody input[type="checkbox"]').click(function () {
+        let total = $('tbody input[type="checkbox"]').length;
+        let checked = $('tbody input[type="checkbox"]:checked').length;
+        $('#selectAll').prop('checked', total === checked);
+    })
+
+
+    $('#list table input[type="checkbox"]').change(function () {
+        let isShow = $('table input[type="checkbox"]:checked').length > 0
+        $('#btnDelete').toggle(isShow);
+    })
+
+
+    $('#list a[group-name="btnDelete"]').click(function () {
+        let ids = [];
+        if ($(this).attr("id") === "btnDelete") {
+            $('#list tbody input[data-value]:checked').each(function () {
+                ids.push($(this).attr("data-value"));
+            })
+        } else {
+            ids.push($(this).parents('tr').find('input').first().attr("data-value"));
+        }
+        swal({
+            title: "Bạn có chắc chắn muốn xóa?",
+            text: "Hành động này không thể hoàn tác!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No"
+        }, function(isConfirm) {
+            if (isConfirm) {
+                let data = {};
+                data["ids"] = ids;
+                deleteCategory(data);
+            }
+        });
+    })
+
+    function deleteCategory(data) {
+        $.ajax({
+            url: "/api/admin/category",
+            type: "DELETE",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function (result) {
+                window.location.href = "/admin/category"
+            },
+            error: function (err) {
+                window.location.href = "/admin/category"
+            }
+        })
+    }
+</script>

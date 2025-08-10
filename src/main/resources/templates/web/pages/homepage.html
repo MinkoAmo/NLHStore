@@ -1,0 +1,156 @@
+<main class="main home" th:fragment="index">
+    <div class="container mb-2">
+        <div class="info-boxes-container row row-joined mb-2 font2">
+            <div class="info-box info-box-icon-left col-lg-4">
+                <i class="icon-shipping"></i>
+
+                <div class="info-box-content">
+                    <h4>Miễn phí giao & hoàn hàng</h4>
+                    <p class="text-body">Miễn phí cho mọi đơn hàng trên 999k</p>
+                </div>
+                <!-- End .info-box-content -->
+            </div>
+            <!-- End .info-box -->
+
+            <div class="info-box info-box-icon-left col-lg-4">
+                <i class="icon-money"></i>
+
+                <div class="info-box-content">
+                    <h4>MONEY BACK GUARANTEE</h4>
+                    <p class="text-body">100% money back guarantee</p>
+                </div>
+                <!-- End .info-box-content -->
+            </div>
+            <!-- End .info-box -->
+
+            <div class="info-box info-box-icon-left col-lg-4">
+                <i class="icon-support"></i>
+
+                <div class="info-box-content">
+                    <h4>Hỗ trợ trực tuyến 24/7</h4>
+                    <p class="text-body">Lorem ipsum dolor sit amet.</p>
+                </div>
+                <!-- End .info-box-content -->
+            </div>
+            <!-- End .info-box -->
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row" th:each="category, stat: ${productCategories}">
+                    <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
+                        [[${category.name}]]</h2>
+
+                    <div class="products-slider owl-carousel owl-theme dots-top dots-small m-b-1 pb-1 appear-animate"
+                         data-animation-name="fadeInUpShorter">
+                        <div class="product-default inner-quickview inner-icon"
+                             th:each="product, stat: ${category.products}">
+                            <div th:if="${stat.count < 4}">
+                                <figure class="img-effect">
+                                    <a href="#">
+                                        <img th:src="@{'/fe/assets/images/products/' + ${product.code} + '.jpg'}" width="205" height="205" alt="product">
+                                    </a>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="category-wrap">
+                                        <div class="category-list">
+                                            <a href="#" class="product-category">[[${category.name}]]</a>
+                                        </div>
+                                    </div>
+                                    <h3 class="product-title"><a href="demo1-product.html">[[${product.name}]]</a></h3>
+                                    <!-- End .product-container -->
+                                    <div class="price-box">
+                                        <span class="product-price">[[${product.price}]]</span>
+                                    </div>
+                                    <!-- End .price-box -->
+                                </div>
+                            </div>
+                            <div class="row" th:if="${stat.count == 4}">
+                                <a href="#" class="nolink pl-0">Xem thêm...</a>
+                            </div>
+                            <!-- End .product-details -->
+                        </div>
+                    </div>
+                    <!-- End .featured-proucts -->
+
+
+                </div>
+            </div>
+            <!-- End .col-lg-9 -->
+
+            <div class="sidebar-overlay"></div>
+            <div class="sidebar-toggle custom-sidebar-toggle"><i class="fas fa-sliders-h"></i></div>
+            <aside class="sidebar-home col-lg-3 order-lg-first mobile-sidebar">
+                <div class="side-menu-wrapper text-uppercase mb-2 d-none d-lg-block">
+                    <h2 class="side-menu-title bg-gray ls-n-25">Browse Categories</h2>
+
+                    <nav class="side-nav">
+                        <ul class="menu menu-vertical sf-arrows">
+                            <li class="active"><a href="/"><i class="icon-home"></i>Home</a></li>
+                            <li>
+                                <a href="#" class="sf-with-ul"><i
+                                        class="sicon-badge"></i>Categories</a>
+                                <div class="megamenu megamenu-fixed-width megamenu-3cols">
+                                    <div class="row">
+                                        <div class="col-lg-3" th:each="category, stat : ${parentCategories}">
+                                            <div th:if="${stat.count < 4}">
+                                                <a href="#" class="nolink pl-0">[[${category.name}]]</a>
+                                                <ul class="submenu"
+                                                    th:each="subCategory, stat : ${category.subCategories}">
+                                                    <div th:if="${stat.count < 4}">
+                                                        <li><a href="#">[[${subCategory.name}]]</a></li>
+                                                    </div>
+                                                    <div th:if="${stat.count == 4}">
+                                                        <li><a href="#">Xem thêm...</a></li>
+                                                    </div>
+
+                                                </ul>
+                                            </div>
+                                            <div th:if="${stat.count == 4}">
+                                                <a href="#" class="nolink pl-0">Xem thêm...</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .megamenu -->
+                            </li>
+                            <li>
+                                <a href="demo1-product.html" class="sf-with-ul"><i
+                                        class="sicon-basket"></i>Products</a>
+                                <div class="megamenu megamenu-fixed-width">
+                                    <div class="row">
+                                        <div class="col-lg-3" th:each="category, stat: ${productCategories}">
+                                            <div th:if="${stat.count < 4}">
+                                                <a href="#" class="nolink pl-0">[[${category.name}]]</a>
+                                                <ul class="submenu" th:each="product, stat: ${category.products}">
+                                                    <div th:if="${stat.count < 4}">
+                                                        <li><a href="#">[[${product.name}]]</a></li>
+                                                    </div>
+                                                    <div th:if="${stat.count == 4}">
+                                                        <li><a href="#">Xem thêm...</a></li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                            <div th:if="${stat.count == 4}">
+                                                <a href="#" class="nolink pl-0">Xem thêm...</a>
+                                            </div>
+
+                                        </div>
+                                        <!-- End .col-lg-4 -->
+                                    </div>
+                                    <!-- End .row -->
+                                </div>
+                                <!-- End .megamenu -->
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- End .side-menu-container -->
+            </aside>
+            <!-- End .col-lg-3 -->
+        </div>
+        <!-- End .row -->
+    </div>
+    <!-- End .container -->
+</main>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/web/fragments/head :: head"></head>
+<body>
+<div class="page-wrapper">
+
+    <header th:replace="/web/fragments/header :: header"></header>
+    <!-- End .header -->
+
+    <div th:replace="__${content}__"></div>
+    <!-- End .main -->
+
+    <footer th:replace="/web/fragments/footer :: footer"></footer>
+    <!-- End .footer -->
+</div>
+<!-- End .page-wrapper -->
+
+<div class="loading-overlay">
+    <div class="bounce-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+
+<div class="mobile-menu-overlay"></div>
+<!-- End .mobil-menu-overlay -->
+
+<div class="sticky-navbar">
+    <div class="sticky-info">
+        <a href="demo1.html">
+            <i class="icon-home"></i>Home
+        </a>
+    </div>
+    <div class="sticky-info">
+        <a href="demo1-shop.html" class="">
+            <i class="icon-bars"></i>Categories
+        </a>
+    </div>
+    <div class="sticky-info">
+        <a href="wishlist.html" class="">
+            <i class="icon-wishlist-2"></i>Wishlist
+        </a>
+    </div>
+    <div class="sticky-info">
+        <a href="login.html" class="">
+            <i class="icon-user-2"></i>Account
+        </a>
+    </div>
+    <div class="sticky-info">
+        <a href="cart.html" class="">
+            <i class="icon-shopping-cart position-relative">
+                <span class="cart-count badge-circle">3</span>
+            </i>Cart
+        </a>
+    </div>
+</div>
+
+<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+<div th:replace="/web/fragments/script :: script"></div>
+<div th:if="${script != null} ">
+    <div th:replace="__${script}__"></div>
+</div>
+</body>
+
+</html>
