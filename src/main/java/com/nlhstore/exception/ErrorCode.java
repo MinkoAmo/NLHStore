@@ -23,6 +23,8 @@ public enum ErrorCode {
     CODE_PRODUCT_EXISTED(1107, HttpStatus.BAD_REQUEST, "Mã sản phẩm đã tồn tại"),
     NAME_PRODUCT_EXISTED(1108, HttpStatus.BAD_REQUEST, "Tên sản phẩm đã tồn tại"),
     CODE_PERMISSION_EXISTED(1109, HttpStatus.BAD_REQUEST, "Mã quyền đã tồn tại"),
+    CODE_ROLE_EXISTED(1110, HttpStatus.BAD_REQUEST, "Mã role đã tồn tại"),
+    NAME_ROLE_EXISTED(1111, HttpStatus.BAD_REQUEST, "Tên role đã tồn tại"),
 
     CODE_CATEGORY_INVALID(1201, HttpStatus.BAD_REQUEST, "Mã danh mục phải trong khoảng từ 1-50 kí tự"),
     NAME_CATEGORY_INVALID(1202, HttpStatus.BAD_REQUEST, "Tên danh mục phải trong khoảng từ 1-50 kí tự"),
@@ -34,6 +36,8 @@ public enum ErrorCode {
     CODE_PRODUCT_INVALID(1206, HttpStatus.BAD_REQUEST, "Mã sản phẩm phải trong khoảng từ 1-50 kí tự"),
     NAME_PRODUCT_INVALID(1207, HttpStatus.BAD_REQUEST, "Tên sản phẩm phải trong khoảng từ 1-50 kí tự"),
     CODE_PERMISSION_INVALID(1208, HttpStatus.BAD_REQUEST, "Mã quyền phải trong khoảng từ 1-50 kí tự"),
+    CODE_ROLE_INVALID(1209, HttpStatus.BAD_REQUEST, "Mã role phải trong khoảng từ 1-50 kí tự"),
+    NAME_ROLE_INVALID(1210, HttpStatus.BAD_REQUEST, "Tên role phải trong khoảng từ 1-50 kí tự"),
 
     CODE_CATEGORY_BLANK(1301, HttpStatus.BAD_REQUEST, "Mã danh mục không được để trống"),
     NAME_CATEGORY_BLANK(1302, HttpStatus.BAD_REQUEST, "Tên danh mục không được để trống"),
@@ -47,6 +51,8 @@ public enum ErrorCode {
     QUANTITY_PRODUCT_BLANK(1310, HttpStatus.BAD_REQUEST, "Số lượng không được để trống"),
     STATUS_PRODUCT_BLANK(1311, HttpStatus.BAD_REQUEST, "Trạng thái sản phẩm không được để trống"),
     CODE_PERMISSION_BLANK(1303, HttpStatus.BAD_REQUEST, "Mã quyền không được để trống"),
+    CODE_ROLE_BLANK(1301, HttpStatus.BAD_REQUEST, "Mã role không được để trống"),
+    NAME_ROLE_BLANK(1302, HttpStatus.BAD_REQUEST, "Tên role không được để trống"),
 
     GENERATE_TOKEN_FAIL(9995, HttpStatus.INTERNAL_SERVER_ERROR, "Không thể tạo token"),
     UNAUTHENTICATED(99976, HttpStatus.UNAUTHORIZED, "Không xác thực tài khoản"),

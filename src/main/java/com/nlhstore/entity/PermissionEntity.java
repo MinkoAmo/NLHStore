@@ -25,6 +25,6 @@ public class PermissionEntity extends BaseEntity {
     String description;
 
     @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "permission")
+    @ManyToMany(mappedBy = "permissions")
     Set<RoleEntity> roles  = new HashSet<RoleEntity>();
 }

@@ -53,6 +53,7 @@ public class UserService implements IUserService {
     @Override
     public UserResponse createUser(UserCreateRequest request) {
         UserDTO userDTO = userMapper.toDTO(request);
+
         boolean isUsernameExist = userRepository.existsByUsername(userDTO.getUsername());
         boolean isEmailExist = userRepository.existsByEmail(userDTO.getEmail());
         if (isUsernameExist) {
@@ -61,6 +62,7 @@ public class UserService implements IUserService {
         if (isEmailExist) {
             throw new AppException(ErrorCode.EMAIL_EXISTED);
         }
+
         UserEntity userEntity = userMapper.toEntity(userDTO);
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         assignRoleToUser(userEntity, "USER");

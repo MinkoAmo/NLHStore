@@ -2,10 +2,12 @@ package com.nlhstore.api.admin;
 
 import com.nlhstore.dto.request.DeleteRequest;
 import com.nlhstore.dto.request.PermissionCreateRequest;
+import com.nlhstore.dto.request.PermissionUpdateRequest;
 import com.nlhstore.dto.response.ApiResponse;
 import com.nlhstore.dto.response.PermissionResponse;
 import com.nlhstore.entity.PermissionEntity;
 import com.nlhstore.service.impl.PermissionService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,15 @@ public class PermissionAPI {
         return ApiResponse.<List<PermissionResponse>>builder()
                 .code(200)
                 .result(permissionService.findAll())
+                .build();
+    }
+
+    @PutMapping("/{id}")
+    public ApiResponse<PermissionResponse> updatePermission(@RequestBody @Valid PermissionUpdateRequest request) {
+        PermissionResponse response = permissionService.updatePermission(request);
+        return ApiResponse.<PermissionResponse>builder()
+                .code(200)
+                .result(response)
                 .build();
     }
 

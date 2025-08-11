@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,5 +37,5 @@ public class RoleEntity extends BaseEntity {
             name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    Set<PermissionEntity> permission  = new HashSet<PermissionEntity>();
+    Set<PermissionEntity> permissions  = new HashSet<PermissionEntity>();
 }

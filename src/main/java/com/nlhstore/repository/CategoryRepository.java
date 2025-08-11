@@ -10,8 +10,11 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
     boolean existsByCode(String code);
+
     boolean existsByName(String name);
+
     boolean existsByCodeAndIdNot(String code, Long id);
+
     boolean existsByNameAndIdNot(String name, Long id);
 
     List<CategoryEntity> findByParentCategoryIsNull();

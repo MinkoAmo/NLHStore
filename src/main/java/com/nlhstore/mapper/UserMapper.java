@@ -37,6 +37,6 @@ public interface UserMapper {
     default Set<String> mapRoles(Set<RoleEntity> roles) {
         if (roles == null) return Set.of();
         return roles.stream()
-                .map(r -> r.getCode()).collect(Collectors.toSet());
+                .map(RoleEntity::getCode).collect(Collectors.toSet());
     }
 }
