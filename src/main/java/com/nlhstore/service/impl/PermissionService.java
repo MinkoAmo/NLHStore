@@ -48,6 +48,12 @@ public class PermissionService implements IPermissionService {
     }
 
     @Override
+    public PermissionResponse findById(Long id) {
+        PermissionEntity permissionEntity = permissionRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PERMISSION_NOT_EXISTED));
+        return permissionMapper.toDTO(permissionEntity);
+    }
+
+    @Override
     public PermissionResponse updatePermission(PermissionUpdateRequest request) {
         PermissionDTO permissionDTO = permissionMapper.toDTO(request);
         boolean isCodeExist = permissionRepository.existsByCodeAndIdNot(permissionDTO.getCode(), permissionDTO.getId());
@@ -64,7 +70,9 @@ public class PermissionService implements IPermissionService {
     @Override
     public void deletePermission(DeleteRequest<PermissionEntity> request){
         for (Long id : request.getIds()) {
-            permissionRepository.deleteById(id);
+            if (permissionRepository.existsById(id)){
+                permissionRepository.deleteById(id);
+            } else throw new AppException(ErrorCode.PERMISSION_NOT_EXISTED);
         }
     }
 }

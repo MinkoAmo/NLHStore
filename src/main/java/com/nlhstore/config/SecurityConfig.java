@@ -27,7 +27,7 @@ public class SecurityConfig {
     @Value("${jwt.signerKey}")
     private String SIGNER_KEY;
 
-    private final String[] PUBLIC_GET_ENDPOINT = {"/", "/api/admin/user/myInfo"};
+    private final String[] PUBLIC_GET_ENDPOINT = {"/", "/api/user/myInfo"};
     private final String[] PUBLIC_POST_ENDPOINT = {"/auth/log-in", "/auth/introspect"};
 
     @Bean
@@ -35,7 +35,8 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request -> request
                 .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINT).permitAll()
                 .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINT).permitAll()
-                .requestMatchers("/api/admin/**", "/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/assets/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/fe/assets/**").permitAll()
                 .anyRequest().authenticated());
 
@@ -50,7 +51,7 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationConverter jwtConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;

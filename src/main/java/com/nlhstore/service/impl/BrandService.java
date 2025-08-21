@@ -77,7 +77,9 @@ public class BrandService implements IBrandService {
     @Override
     public void deleteBrand(DeleteRequest<BrandEntity> request) {
         for (Long id : request.getIds()) {
-            brandRepository.deleteById(id);
+            if (brandRepository.existsById(id)) {
+                brandRepository.deleteById(id);
+            } else throw new AppException(ErrorCode.BRAND_NOT_EXISTED);
         }
     }
 }

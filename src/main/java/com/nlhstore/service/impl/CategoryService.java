@@ -70,7 +70,9 @@ public class CategoryService implements ICategoryService {
     @Override
     public void deleteCategory(DeleteRequest<CategoryEntity> request) {
         for (Long id : request.getIds()) {
-            categoryRepository.deleteById(id);
+            if (categoryRepository.existsById(id)) {
+                categoryRepository.deleteById(id);
+            } else throw new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
         }
     }
 

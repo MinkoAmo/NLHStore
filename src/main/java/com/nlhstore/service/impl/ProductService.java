@@ -24,13 +24,13 @@ import java.util.List;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductService implements IProductService {
-    
+
     @Autowired
     ProductRepository productRepository;
-    
+
     @Autowired
     ProductMapper productMapper;
-    
+
     @Override
     public Page<ProductResponse> findAll(Pageable pageable) {
         Page<ProductEntity> productEntities = productRepository.findAll(pageable);
@@ -77,7 +77,9 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(DeleteRequest<ProductEntity> request) {
         for (Long id : request.getIds()) {
-            productRepository.deleteById(id);
+            if (productRepository.existsById(id)) {
+                productRepository.deleteById(id);
+            } else throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
         }
     }
 }

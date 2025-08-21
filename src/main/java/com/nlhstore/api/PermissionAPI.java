@@ -1,10 +1,12 @@
-package com.nlhstore.api.admin;
+package com.nlhstore.api;
 
 import com.nlhstore.dto.request.DeleteRequest;
 import com.nlhstore.dto.request.PermissionCreateRequest;
 import com.nlhstore.dto.request.PermissionUpdateRequest;
 import com.nlhstore.dto.response.ApiResponse;
+import com.nlhstore.dto.response.CategoryResponse;
 import com.nlhstore.dto.response.PermissionResponse;
+import com.nlhstore.entity.CategoryEntity;
 import com.nlhstore.entity.PermissionEntity;
 import com.nlhstore.service.impl.PermissionService;
 import jakarta.validation.Valid;
@@ -23,19 +25,29 @@ public class PermissionAPI {
     @Autowired
     PermissionService permissionService;
 
-    @PostMapping
-    ApiResponse<PermissionResponse> createPermission(@RequestBody PermissionCreateRequest request){
-        return ApiResponse.<PermissionResponse>builder()
-                .code(200)
-                .result(permissionService.createPermission(request))
-                .build();
-    }
-
     @GetMapping
     ApiResponse<List<PermissionResponse>> findAll(){
         return ApiResponse.<List<PermissionResponse>>builder()
                 .code(200)
                 .result(permissionService.findAll())
+                .build();
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<PermissionResponse> findById(@PathVariable Long id) {
+        PermissionResponse response = permissionService.findById(id);
+
+        return ApiResponse.<PermissionResponse>builder()
+                .code(200)
+                .result(response)
+                .build();
+    }
+
+    @PostMapping
+    ApiResponse<PermissionResponse> createPermission(@RequestBody PermissionCreateRequest request){
+        return ApiResponse.<PermissionResponse>builder()
+                .code(200)
+                .result(permissionService.createPermission(request))
                 .build();
     }
 
@@ -48,8 +60,18 @@ public class PermissionAPI {
                 .build();
     }
 
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deletePermissionById(@PathVariable Long id) {
+        DeleteRequest<PermissionEntity> request = new DeleteRequest<>();
+        request.setIds(List.of(id));
+        permissionService.deletePermission(request);
+        return ApiResponse.<Void>builder()
+                .code(200)
+                .build();
+    }
+
     @DeleteMapping()
-    public ApiResponse<Void> deleteUser(@RequestBody DeleteRequest<PermissionEntity> request) {
+    public ApiResponse<Void> deletePermissions(@RequestBody DeleteRequest<PermissionEntity> request) {
         permissionService.deletePermission(request);
         return ApiResponse.<Void>builder()
                 .code(200)

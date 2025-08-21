@@ -84,7 +84,9 @@ public class UserService implements IUserService {
     @Override
     public void deleteUser(DeleteRequest<UserEntity> request) {
         for (Long id : request.getIds()) {
-            userRepository.deleteById(id);
+            if (userRepository.existsById(id)) {
+                userRepository.deleteById(id);
+            } else throw new AppException(ErrorCode.USER_NOT_EXISTED);
         }
     }
 

@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface IRoleService {
 
-    RoleResponse createRole(RoleCreateRequest request);
-
     List<RoleResponse> findAll();
+
+    RoleResponse createRole(RoleCreateRequest request);
 
     RoleResponse updateRole(RoleUpdateRequest request);
 

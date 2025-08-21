@@ -12,9 +12,11 @@ import java.util.List;
 
 public interface IPermissionService {
 
-    PermissionResponse createPermission(PermissionCreateRequest request);
-
     List<PermissionResponse> findAll();
+
+    PermissionResponse findById(Long id);
+
+    PermissionResponse createPermission(PermissionCreateRequest request);
 
     PermissionResponse updatePermission(PermissionUpdateRequest request);
 

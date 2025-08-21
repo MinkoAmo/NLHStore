@@ -87,7 +87,9 @@ public class RoleService implements IRoleService {
     @Override
     public void deleteRole(DeleteRequest<RoleEntity> request) {
         for (Long id : request.getIds()) {
-            roleRepository.deleteById(id);
+            if (roleRepository.existsById(id)){
+                roleRepository.deleteById(id);
+            } else throw new AppException(ErrorCode.ROLE_NOT_EXISTED);
         }
     }
 }

@@ -26,6 +26,8 @@ import org.springframework.util.CollectionUtils;
 import java.text.ParseException;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringJoiner;
 
 @Service
@@ -94,12 +96,20 @@ public class AuthenticationService implements IAuthenticationService {
         }
     }
 
+
     String buildScope(UserEntity userEntity) {
         StringJoiner joiner = new StringJoiner(" ");
+        Set<String> permissions = new HashSet<>();
         if (!CollectionUtils.isEmpty(userEntity.getRoles())) {
-            userEntity.getRoles().forEach(x -> {
-                joiner.add(x.getCode());
+            userEntity.getRoles().forEach(r -> {
+                joiner.add("ROLE_" + r.getCode());
+                if (!CollectionUtils.isEmpty(r.getPermissions())) {
+                    r.getPermissions().forEach(p -> {
+                        permissions.add(p.getCode());
+                    });
+                }
             });
+            permissions.forEach(joiner::add);
         }
         return joiner.toString();
     }

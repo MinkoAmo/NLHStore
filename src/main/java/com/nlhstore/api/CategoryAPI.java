@@ -1,4 +1,4 @@
-package com.nlhstore.api.admin;
+package com.nlhstore.api;
 
 import com.nlhstore.dto.request.CategoryCreateRequest;
 import com.nlhstore.dto.request.CategoryUpdateRequest;
@@ -36,6 +36,16 @@ public class CategoryAPI {
                 .build();
     }
 
+    @GetMapping("/{id}")
+    public ApiResponse<CategoryResponse> findById(@PathVariable Long id) {
+        CategoryResponse response = categoryService.findById(id);
+
+        return ApiResponse.<CategoryResponse>builder()
+                .code(200)
+                .result(response)
+                .build();
+    }
+
     @PostMapping()
     public ApiResponse<CategoryResponse> createCategory(@RequestBody @Valid CategoryCreateRequest request) {
         CategoryResponse response = categoryService.createCategory(request);
@@ -54,8 +64,18 @@ public class CategoryAPI {
                 .build();
     }
 
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteCategoryById(@PathVariable Long id) {
+        DeleteRequest<CategoryEntity> request = new DeleteRequest<>();
+        request.setIds(List.of(id));
+        categoryService.deleteCategory(request);
+        return ApiResponse.<Void>builder()
+                .code(200)
+                .build();
+    }
+
     @DeleteMapping()
-    public ApiResponse<Void> deleteCategory(@RequestBody DeleteRequest<CategoryEntity> request) {
+    public ApiResponse<Void> deleteCategories(@RequestBody DeleteRequest<CategoryEntity> request) {
         categoryService.deleteCategory(request);
         return ApiResponse.<Void>builder()
                 .code(200)
