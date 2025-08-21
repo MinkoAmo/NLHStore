@@ -3,6 +3,7 @@ package com.nlhstore.api;
 import com.nimbusds.jose.JOSEException;
 import com.nlhstore.dto.request.AuthenticationRequest;
 import com.nlhstore.dto.request.IntrospectRequest;
+import com.nlhstore.dto.request.LogoutRequest;
 import com.nlhstore.dto.response.ApiResponse;
 import com.nlhstore.dto.response.AuthenticationResponse;
 import com.nlhstore.dto.response.IntrospectResponse;
@@ -40,6 +41,15 @@ public class AuthenticationController {
 
         return ApiResponse.<IntrospectResponse>builder()
                 .result(result)
+                .build();
+    }
+
+    @PostMapping("/logout")
+    public ApiResponse<Void> authenticate(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+
+        authenticationService.logout(request);
+
+        return ApiResponse.<Void>builder()
                 .build();
     }
 }
